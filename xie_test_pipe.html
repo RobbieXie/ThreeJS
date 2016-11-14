@@ -89,34 +89,53 @@
 
             }
 
-            var CustomSinCurve = THREE.Curve.create(
+            var numPoints = 100;
+            var start = new THREE.Vector3(-500, 0, 200);
+            var middle = new THREE.Vector3(000, 350, 0);
+            var end = new THREE.Vector3(500, 0, -200);
 
-              	function ( scale ) { //custom curve constructor
+            var curveQuad = new THREE.QuadraticBezierCurve3(start, middle, end);
+            var lineCurve = new THREE.LineCurve(start,end);
 
-              		this.scale = ( scale === undefined ) ? 1 : scale;
+            var tube = new THREE.TubeGeometry(curveQuad, 100, 50, 20, false);
+            var mesh = new THREE.Mesh(tube, new THREE.MeshNormalMaterial({
+                opacity: 0.9,
+                transparent: true
+            }));
 
-              	},
+            this.scene.add(mesh);
 
-              	function ( t ) { //getPoint: t is between 0-1
 
-              		var tx = t * 3 - 1.5;
-              		var ty = Math.sin( 2 * Math.PI * t );
-              		var tz = 0;
-
-              		return new THREE.Vector3( tx, ty, tz ).multiplyScalar( this.scale );
-
-              	}
-
-            );
-
-            var path = new CustomSinCurve( 200 );
-            var geometry = new THREE.TubeGeometry( path, 20, 20, 8, false );
-            var material = new THREE.MeshLambertMaterial( { color: 0x777aaf, opacity: 0.2 } );
-            var mesh = new THREE.Mesh( geometry, material );
-            scene.add( mesh );
-
+            // //曲线管道Tube测试
+            // var CustomSinCurve = THREE.Curve.create(
+            //
+            //   	function ( scale ) { //custom curve constructor
+            //
+            //   		this.scale = ( scale === undefined ) ? 1 : scale;
+            //
+            //   	},
+            //
+            //   	function ( t ) { //getPoint: t is between 0-1
+            //
+            //   		var tx = t * 3 - 1.5;
+            //   		var ty = Math.sin( 2 * Math.PI * t );
+            //   		var tz = 0;
+            //
+            //   		return new THREE.Vector3( tx, ty, tz ).multiplyScalar( this.scale );
+            //
+            //   	}
+            //
+            // );
+            //
+            // var path = new CustomSinCurve( 200 );
+            // var geometry = new THREE.TubeGeometry( path, 20, 20, 8, false );
+            // var material = new THREE.MeshLambertMaterial( { color: 0x777aaf, opacity: 0.2 } );
+            // var mesh = new THREE.Mesh( geometry, material );
+            // scene.add( mesh );
+            //
             // 添加圆柱
-            var cube = new THREE.Mesh(new THREE.CylinderGeometry(60, 60, 1000, 32), new THREE.MeshLambertMaterial({ color: 0x777aaf, opacity: 0.2 }));
+            var cube = new THREE.Mesh(new THREE.CylinderGeometry(60, 60, 1000, 32), new THREE.MeshNormalMaterial({ opacity: 0.9,
+            transparent: true }));
             cube.rotation.x = cube.rotation.z = Math.PI * 0.1;
             cube.position.x = -300;
             cube.position.y = 150;
