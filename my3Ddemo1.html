@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3DDemo</title>
+    <style type="text/css">
+        #toolTip
+        {
+
+        }
+    </style>
+    <script src="../JSLibrary/jquery-3.1.0.min.js"></script>
+    <script src="../JSLibrary/three.js"></script>
+    <script src="../JSLibrary/OrbitControls.js"></script>
+    <script src="../JSLibrary/threex.domevent.js"></script>
+    <script src="../JSLibrary/dat.gui.js"></script>
+    <script src="../JSLibrary/stats.js"></script>
+    <script type="text/javascript">
+        $(function () {
+                init3D();
+            $("#WebGL-output").dblclick(function (e) {
+                var toolTip = $("#toolTip");
+                toolTip.empty();
+                var top = e.pageY;
+                var left = e.pageX;
+                var position = "双击了屏幕X坐标："+left
+                +"  Y坐标："+top;
+                toolTip.css({
+                    "top":top+"px",
+                    "left":left+"px",
+                    "position":"absolute",
+                    "border": "solid"
+                }).append(position).show("fast");
+            })
+        });
+        var camera;
+        var  scene;
+        var renderer ;
+        var directionalLight;
+        var ambientLight;
+        var ambientLightColor = "#1c1c1c";
+        var directionalLightColor = "#ff5808";
+        function  initThree() {
+            renderer = new THREE.WebGLRenderer();
+            renderer.setClearColor(0xFFFFFF);
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            $("#WebGL-output").append(renderer.domElement);
+        }
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45,
+            window.innerWidth/window.innerHeight,0.1,1000);
+            camera.position.x = 0;
+            camera.position.y = 0;
+            camera.position.z = 50;
+            camera.lookAt(
+                    {
+                        x:0,
+                        y:0,
+                        z:0
+                    }
+            );
+           var controls = new THREE.OrbitControls( camera );
+            controls.addEventListener( 'change', render );
+        }
+        function initScene() {
+            scene = new THREE.Scene();
+        }
+        function initLight() {
+
+            ambientLight = new THREE.AmbientLight(ambientLightColor);
+            scene.add(ambientLight);
+             directionalLight = new THREE.DirectionalLight(directionalLightColor);
+            scene.add(directionalLight);
+        }
+
+        function initControl()
+        {
+
+            var controls = new function () {
+                this.directColor = directionalLightColor;
+                this.ambientColor = ambientLightColor;
+            };
+
+            var gui = new dat.GUI();
+        gui.addColor(controls,'directColor').onChange(function (e) {
+            directionalLight.color= new THREE.Color(e);
+        });
+            gui.addColor(controls,'ambientColor').onChange(function (e) {
+               ambientLight.color= new THREE.Color(e);
+            });
+
+        }
+
+        var drawLine;
+        function  initObject() {
+            var  cubeGeometry = new THREE.CubeGeometry(4,4,4);
+            var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff3333});
+            var cube = new THREE.Mesh(cubeGeometry,cubeMaterial);
+            cube.position.x = -4;
+            cube.position.y = 0;
+            cube.position.z = 0;
+            scene.add(cube);
+            var sphereGeometry = new THREE.SphereGeometry(4, 20, 20);
+            var sphereMaterial = new THREE.MeshLambertMaterial({color: 0x7777ff});
+            var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+            // position the sphere
+            sphere.position.x = 20;
+            sphere.position.y = 0;
+            sphere.position.z = 2;
+            sphere.castShadow = true;
+
+            // add the sphere to the scene
+            scene.add(sphere);
+            var mesh = drawLine(new THREE.Vector3(0,0,0),new THREE.Vector3(20,20,20));
+            scene.add(mesh);
+
+            RandomDraw(scene,10);
+        }
+
+
+        drawLine = function (start, end) {
+            var points = [];
+            points.push(start);
+            points.push(end);
+            var tubeGeometry
+                    = new THREE.TubeGeometry(
+                    new THREE.SplineCurve3(points), 64, 0.5, 8, true, true
+            );
+          //  var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff3333});
+            var mesh = createMesh(tubeGeometry);
+            return mesh;
+            //    return createMesh(tubeGeometry);
+        };
+        
+        function createMesh(geom) {
+            geom.applyMatrix(new THREE.Matrix4().makeTranslation(-20, 0, 0));
+
+            // assign two materials
+            var meshMaterial = new THREE.MeshNormalMaterial({
+                shading: THREE.FlatShading,
+                transparent: true,
+                opacity: 0.7
+            });
+
+            //  meshMaterial.side = THREE.DoubleSide;
+            var wireFrameMat = new THREE.MeshBasicMaterial();
+            wireFrameMat.wireframe = true;
+
+            // create a multimaterial
+            var mesh = THREE.SceneUtils.createMultiMaterialObject(geom, [meshMaterial]);
+
+            return mesh;
+        }
+        
+        function RandomDraw(scence,m) {
+            var points = [];
+            for(var i=0;i<m+1;i++)
+            {
+                var x = Math.random()*20;
+                var y = Math.random()*20;
+                var z = Math.random()*20;
+                points.push(new THREE.Vector3(x,y,z));
+            }
+            for(var i = 0;i<points.length-1;i++)
+            {
+                var start = points[i];
+                var end = points[i+1];
+               scence.add(drawLine(start,end));
+            }
+        }
+        function init3D() {
+            initThree();
+            initCamera();
+            initScene();
+            initLight();
+            initObject();
+            initControl();
+            renderer.render(scene, camera);
+        }
+
+        function render()
+        {
+            requestAnimationFrame(render);
+            renderer.render(scene, camera);
+        }
+
+    </script>
+</head>
+<body>
+
+<div id="WebGL-output">
+</div>
+<div id="toolTip">
+</div>
+</body>
+</html>
