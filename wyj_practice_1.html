@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Three框架</title>
+    <script src="js/Three.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <style type="text/css">
+        div#canvas-frame {
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 600px;
+            background-color: #EEEEEE;
+        }
+
+    </style>
+    <script>
+
+        var renderer;
+        function initThree() {
+            width = document.getElementById('canvas-frame').clientWidth;
+            height = document.getElementById('canvas-frame').clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias : true
+            });
+            renderer.setSize(width, height);
+            document.getElementById('canvas-frame').appendChild(renderer.domElement);
+            renderer.setClearColor(0xFFFFFF, 1.0);
+        }
+
+        var camera;
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+            camera.position.x = 500;
+            camera.position.y = 500;
+            camera.position.z = 1500;
+//            camera.up.x = 1;
+//            camera.up.y = 0;
+//            camera.up.z = 1;
+            camera.lookAt({
+                x : 0,
+                y : 0,
+                z : 0
+            });
+            //������
+            var controls = new THREE.OrbitControls( camera );
+            controls.addEventListener( 'change', render );
+
+        }
+
+        var scene; //场景
+        function initScene() {
+            scene = new THREE.Scene();
+        }
+
+        var light;
+        function initLight() {
+            light = new THREE.AmbientLight(0xFF0000);
+            light.position.set(100, 100, 200);
+            scene.add(light);
+        }
+        
+        function initObject() {
+        	//根据点画出四条线
+            var geometry1 = new THREE.Geometry();
+            geometry1.vertices.push( new THREE.Vector3( 0, 0, 0 ) );
+            geometry1.vertices.push( new THREE.Vector3( 400, 0, 0 ) );
+            geometry1.vertices.push( new THREE.Vector3( 400, 400, 0 ) );
+            geometry1.vertices.push( new THREE.Vector3( 0, 400, 0 ) );
+            geometry1.vertices.push( new THREE.Vector3( 0, 0, 0 ) );
+            
+            var geometry2 = new THREE.Geometry();
+            geometry2.vertices.push( new THREE.Vector3( 0, 0, 400 ) );
+            geometry2.vertices.push( new THREE.Vector3( 400, 0, 400 ) );
+            geometry2.vertices.push( new THREE.Vector3( 400, 400, 400 ) );
+            geometry2.vertices.push( new THREE.Vector3( 0, 400, 400 ) );
+            geometry2.vertices.push( new THREE.Vector3( 0, 0, 400 ) );
+            
+            var geometry3 = new THREE.Geometry();
+            geometry3.vertices.push( new THREE.Vector3( 0, 0, 0 ) );
+            geometry3.vertices.push( new THREE.Vector3( 0, 0, 400 ) );
+            geometry3.vertices.push( new THREE.Vector3( 0, 400, 400 ) );
+            geometry3.vertices.push( new THREE.Vector3( 0, 400, 0 ) );
+            
+            var geometry4 = new THREE.Geometry();
+            geometry4.vertices.push( new THREE.Vector3( 400, 0, 0 ) );
+            geometry4.vertices.push( new THREE.Vector3( 400, 0, 400 ) );
+            geometry4.vertices.push( new THREE.Vector3( 400, 400, 400 ) );
+            geometry4.vertices.push( new THREE.Vector3( 400, 400, 0 ) );
+            
+            var line = new THREE.Line( geometry1, new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.2 } ) );
+            scene.add( line );
+
+            var line = new THREE.Line( geometry2, new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.2 } ) );
+            scene.add( line );
+            
+            var line = new THREE.Line( geometry3, new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.2 } ) );
+            scene.add( line );
+                
+            var line = new THREE.Line( geometry4, new THREE.LineBasicMaterial( { color: 0x000000, opacity: 0.2 } ) );
+            scene.add( line );
+
+			//内切球体
+        	var sphere = new THREE.Mesh(new THREE.SphereGeometry(200, 100, 100), new THREE.MeshLambertMaterial({ color: 0x990000, opacity: 0.2 }));
+            sphere.rotation.y = -Math.PI / 2;
+            sphere.position.x = 200;
+            sphere.position.y = 200;
+            sphere.position.z = 200;
+            sphere.castShadow = sphere.receiveShadow = true;
+            scene.add(sphere);
+            
+        }
+        
+        function threeStart() {
+            initThree();
+            initCamera();
+            initScene();
+            initLight();
+            initObject();
+            renderer.render(scene, camera);
+        }
+
+
+        function render()
+        {
+            renderer.render(scene, camera);
+        }
+
+    </script>
+</head>
+
+<body onload="threeStart();">
+<div id="canvas-frame"></div>
+</body>
+</html>
