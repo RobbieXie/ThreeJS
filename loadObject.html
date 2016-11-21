@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>myThreejs</title>
+    <script type="text/javascript" src="js/three.js"></script>
+    <script type="text/javascript" src="js/OrbitControls.js"></script>
+    <script type="text/javascript" src="js/OBJLoader.js"></script>
+    <style type="text/css">
+        div#main-canvas {
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 600px;
+            background-color: #eeeeee
+        }
+    </style>
+    <script>
+
+        var renderer;
+        function initRenderer()
+        {
+            width = document.getElementById("main-canvas").clientWidth;
+            height = document.getElementById("main-canvas").clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            });
+            document.getElementById("main-canvas").appendChild(renderer.domElement);
+            renderer.setSize(width,height);
+            renderer.setClearColor(0xeeeeee, 1.0);
+            
+        }
+
+        var scene;
+        function initScene()
+        {
+            scene = new THREE.Scene();
+        }
+
+        var light;
+        function initLight()
+        {
+            light = new THREE.DirectionalLight(0xffffff, 1.0, 0);
+            light.position.set(500, 500, 500);
+            //scene.add(light);
+
+            var ambientLight = new THREE.AmbientLight(0xffffff, 1);
+            //scene.add(ambientLight);
+
+            var spotLight = new THREE.SpotLight(0xffffff, 1, 1000);
+            spotLight.position.set(200, 200, 200);
+            scene.add(spotLight);
+        }
+
+        var camera;
+        function initCamera()
+        {
+            camera = new THREE.PerspectiveCamera(45, width/height, 1, 10000);
+            camera.position.x = 800;
+            camera.position.y = 800;
+            camera.position.z = 800;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            scene.add(camera);
+            
+        }
+
+        var orbitControl;
+        function initOrbitControl()
+        {
+            orbitControl = new THREE.OrbitControls(camera);
+            orbitControl.addEventListener("change", render);
+
+        }
+
+        function addObject()
+        {
+            var cube = new THREE.CubeGeometry(100,100,100,5,5,5);
+            var matrial = new THREE.MeshLambertMaterial({
+                color: 0x0000ff
+
+            });
+
+            var cubeMesh = new THREE.Mesh(cube, matrial);
+            cubeMesh.position.x = 0;
+            cubeMesh.position.y = 0;
+            cubeMesh.position.z = 200;
+            scene.add(cubeMesh);
+
+
+            var linex = new THREE.Geometry();
+            linex.vertices.push(new THREE.Vector3(0, 0, 0));
+            linex.vertices.push(new THREE.Vector3(500, 0, 0));
+            var liney = new THREE.Geometry();
+            liney.vertices.push(new THREE.Vector3(0, 0, 0));
+            liney.vertices.push(new THREE.Vector3(0, 500, 0));         
+            var linez = new THREE.Geometry();
+            linez.vertices.push(new THREE.Vector3(0, 0, 0));
+            linez.vertices.push(new THREE.Vector3(0, 0, 500));       
+            var xline = new THREE.Line(linex, new THREE.LineBasicMaterial({ color: 0xff0000 }));
+            scene.add(xline);
+            var yline = new THREE.Line(liney, new THREE.LineBasicMaterial({ color: 0x00ff00}));
+            scene.add(yline);
+            var zline = new THREE.Line(linez, new THREE.LineBasicMaterial({ color: 0x0000ff}));
+            scene.add(zline);
+        }
+
+        function addTube()
+        {
+            addCylinder(pf,ps);
+        }
+
+        var pf = new THREE.Vector3(300,0,0);
+        var ps = new THREE.Vector3(100, 100, 100);
+        function addCylinder(pf,ps)
+        {
+            var x1 = pf.x;
+            var y1 = pf.y;
+            var z1 = pf.z;
+            var x2 = ps.x;
+            var y2 = ps.y;
+            var z2 = ps.z;
+            var length = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
+            var cylinder = new THREE.CylinderGeometry(5, 5, length, 20, 5);
+            var cylinderMtl = new THREE.MeshBasicMaterial({
+                color: 0xff0000
+            });
+            var cylinderObject = new THREE.Mesh(cylinder, cylinderMtl);
+            cylinderObject.position.set((x1 + x2) / 2, (y1 + y2) / 2, (z1 + z2) / 2);
+            var direction = new THREE.Vector3(0, 0, 100);
+            if (y1 != y2) {
+                cylinderObject.rotation.x = Math.atan((z1 - z2) / (y1 - y2));
+            }
+            if (z1 != z2) {
+                cylinderObject.rotation.y = Math.atan((x1 - x2) / (z1 - z2));
+            }
+            if (y2 != y1) {
+                cylinderObject.rotation.z = Math.atan((x2 - x1) /(y2 - y1));
+            }
+            scene.add(cylinderObject);
+        }
+
+        var objLoader;
+        function loadObj()
+        {
+
+            objLoader = new THREE.OBJLoader();
+            objLoader.load('obj/Avent.obj',
+                                function (object) {
+                                    object.traverse(function (child) {
+                                        if (child instanceof THREE.Mesh) {
+                                            child.material = new THREE.MeshLambertMaterial({
+                                                color: 0xffffff,
+                                                side: THREE.DoubleSide
+                                            });
+                                        }
+                                    });
+                                    mesh = object;
+                                    object.scale.setScalar(50);
+                                    scene.add(object);
+                                });
+        }
+
+        function render()
+        {
+            renderer.render(scene, camera);
+        }
+        function startThree()
+        {
+            initRenderer();
+            initScene();
+            initLight();
+            initCamera();
+            initOrbitControl();
+            loadObj();
+            addObject();
+            addTube();
+            renderer.render(scene, camera);
+        }
+    </script>
+</head>
+
+<body onload="startThree()">
+    <div id="main-canvas">
+    </div>
+    <div id="test-canvas">
+    </div>
+</body>
+</html>
