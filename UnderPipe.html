@@ -7,18 +7,21 @@
     <script type="text/javascript" src="js/three.js"></script>
     <script type="text/javascript" src="js/OrbitControls.js"></script>
     <script type="text/javascript" src="js/OBJLoader.js"></script>
+    <script src="mockJson.js"></script>
     <style type="text/css">
         div#main-canvas {
             border: none;
             cursor: pointer;
-            width: 100%;
+            width: 600px;
             height: 600px;
             background-color: #eeeeee
         }
     </style>
     <script>
-
+        var container, projector, mouse = {x:0, y:0};
+        var targetList = [];
         var renderer;
+        var width,height;
         function initRenderer()
         {
             width = document.getElementById("main-canvas").clientWidth;
@@ -26,10 +29,11 @@
             renderer = new THREE.WebGLRenderer({
                 antialias: true
             });
+            container = document.getElementById('main-canvas');
             document.getElementById("main-canvas").appendChild(renderer.domElement);
             renderer.setSize(width,height);
             renderer.setClearColor(0xeeeeee, 1.0);
-            
+
         }
 
         var scene;
@@ -67,7 +71,7 @@
             //camera.lookAt(new THREE.Vector3(300, 300, 300));
             camera.lookAt(new THREE.Vector3(200, 0, 0));
             scene.add(camera);
-            
+
         }
 
         var orbitControl;
@@ -98,10 +102,10 @@
             linex.vertices.push(new THREE.Vector3(axisLength, 0, 0));
             var liney = new THREE.Geometry();
             liney.vertices.push(new THREE.Vector3(0, 0, 0));
-            liney.vertices.push(new THREE.Vector3(0, axisLength, 0));         
+            liney.vertices.push(new THREE.Vector3(0, axisLength, 0));
             var linez = new THREE.Geometry();
             linez.vertices.push(new THREE.Vector3(0, 0, 0));
-            linez.vertices.push(new THREE.Vector3(0, 0, axisLength));       
+            linez.vertices.push(new THREE.Vector3(0, 0, axisLength));
             var xline = new THREE.Line(linex, new THREE.LineBasicMaterial({ color: 0xff0000 }));
             scene.add(xline);
             var yline = new THREE.Line(liney, new THREE.LineBasicMaterial({ color: 0x00ff00}));
@@ -153,6 +157,18 @@
             }
         }
 
+        function addPipeWithInfoArray(pipeArrayWithInfo)
+        {
+            for (var currentpipe = 0; currentpipe < pipeArray.length; currentpipe++)
+            {
+                var pipe = pipeArrayWithInfo[currentpipe];
+                for (var currentpoint = 0; currentpoint < pipe.points.length - 1; currentpoint++)
+                {
+                    addSingleTubeWithUserData(pipe.points[currentpoint], pipe.points[currentpoint + 1],pipe.info);
+                }
+            }
+        }
+
         //function add single tube
         function addSingleTube(start,end)
         {
@@ -167,6 +183,27 @@
                 color:0x00ffaa
             }));
             scene.add(lineMesh);
+            targetList.push(lineMesh);
+        }
+
+        //function add single tube with userData
+        function addSingleTubeWithUserData(start,end,userData,color)
+        {
+            var linecurve = new THREE.LineCurve(start, end);
+            var lineGeometry = new THREE.TubeGeometry(linecurve, 100, 4, 20, false);
+
+            var lineMesh = new THREE.Mesh(lineGeometry, new THREE.MeshLambertMaterial({
+                opacity: 0.9,
+                transparent: false,
+                side: THREE.DoubleSide,
+                color:0x00ffaa
+            }));
+
+            if(userData != null && userData!="undefined"){
+              lineMesh.userData = userData;
+            }
+            scene.add(lineMesh);
+            targetList.push(lineMesh);
         }
 
 
@@ -175,97 +212,8 @@
             renderer.render(scene, camera);
         }
 
-        //Json Information
-        var mockJson = {
-            "currentLoction":
-            {
-                x: 121.219955,
-                y: 31.288757
-            },
-            "pipes": [
-              {
-                  "pipeInfo":
-                  {
-                      "ID": 114,
-                      "name": "同济软院地下水管",
-                      "type": "水管",
-                      "companyName": "水利局",
-                      "status": 1
-                  },
-                  "points":
-                      [
-                    {
-                        x: 121.219928,
-                        y: 31.288935,
-                        z: 40,
-                        radius: 5,
-                        location: "start"
-                    },
-                    {
-                        x: 121.219959,
-                        y: 31.288788,
-                        z: 40,
-                        radius: 5,
-                        location: "mid"
-                    },
-                    {
-                        x: 121.220211,
-                        y: 31.288777,
-                        z: 40,
-                        radius: 5,
-                        location: "mid"
-                    },
-                    {
-                        x: 121.220153,
-                        y: 31.288738,
-                        z: 40,
-                        radius: 5,
-                        location: "mid"
-                    },
-                    {
-                        x: 121.219955,
-                        y: 31.288738,
-                        z: 40,
-                        radius: 5,
-                        location: "mid"
-                    },
-                    {
-                        x: 121.219942,
-                        y: 31.288568,
-                        z: 40,
-                        radius: 5,
-                        location: "end"
-                    }
-                      ]
-              },
-              {
-                  "pipeInfo": {
-                      "ID": 1114,
-                      "name": "同济软院煤气管",
-                      "type": "煤气管",
-                      "companyName": "嘉定煤气公司",
-                      "status": 1
-                  },
-                  "points": [
-                    {
-                        x: 121.219856,
-                        y: 31.288753,
-                        z: 20,
-                        radius: 5,
-                        location: "start"
-                    },
-                    {
-                        x: 121.220117,
-                        y: 31.288746,
-                        z: 20,
-                        radius: 5,
-                        location: "end"
-                    }
-                  ]
-              }
-            ]
-        }
         var pipeArray = new Array();
+        var pipeArrayWithInfo = new Array();
         function JsonParse(json,pipeArray)
         {
             var originpoint = json.currentLoction;
@@ -274,7 +222,7 @@
             var ypos = 0;
             var pointArray;
             var zoomsize = 1000000;
-            
+
             for (var currentpipe = 0; currentpipe < json.pipes.length; currentpipe++)
             {
                 var pipe = json.pipes[currentpipe];
@@ -291,8 +239,92 @@
             }
         }
 
+        function JsonParseWithInfo(json,pipeArrayWithInfo)
+        {
+            var originpoint = json.currentLoction;
+            var newpoint;
+            var xpos = 0;
+            var ypos = 0;
+            var pointArray;
+            var zoomsize = 1000000;
+
+            for (var currentpipe = 0; currentpipe < json.pipes.length; currentpipe++)
+            {
+                var pipe = json.pipes[currentpipe];
+                var pipeInfo = {};
+                pointArray = new Array();
+                for (var currentpoint = 0; currentpoint < pipe.points.length; currentpoint++)
+                {
+                    var point = pipe.points[currentpoint];
+                    xpos = (point.x - originpoint.x)*zoomsize;
+                    ypos = -(point.y - originpoint.y)*zoomsize;
+                    newpoint = new THREE.Vector3(xpos, point.z, ypos);
+                    pointArray.push(newpoint);
+                }
+                pipeInfo.info = pipe.pipeInfo;
+                pipeInfo.points = pointArray;
+                pipeArrayWithInfo.push(pipeInfo);
+            }
+        }
+
         var x_pos = new MapPosition(120, 25, 36, 60, 25, 20);
         var y_pos = new MapPosition(125, 30, 18, 45, 30, 49);
+
+        function onDocumentMouseDown( event )
+        {
+        	console.log("Click.");
+
+        	// update the mouse variable
+          mouse.x = ( event.clientX / width ) * 2 - 1;
+          mouse.y = - ( event.clientY / (height+20) ) * 2 + 1;
+
+        	// find intersections
+        	// create a Ray with origin at the mouse position
+        	//   and direction into the scene (camera direction)
+        	var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+        	projector.unprojectVector( vector, camera );
+        	var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+
+        	// create an array containing all objects in the scene with which the ray intersects
+        	var intersects = ray.intersectObjects( targetList );
+
+        	// if there is one (or more) intersections
+        	if ( intersects.length > 0 )
+        	{
+        		// change the color of the closest face.
+            alert(intersects[ 0 ].object.userData);
+        	}
+        }
+
+        //当鼠标移动时触发的事件
+        function onDocumentMouseMove( event ) {
+            //阻止本来的默认事件，比如浏览器的默认右键事件是弹出浏览器的选项
+            event.preventDefault();
+
+            mouse.x = ( event.clientX / width ) * 2 - 1;
+            mouse.y = - ( event.clientY / (height+20) ) * 2 + 1;
+
+            //新建一个三维变换半单位向量 假设z方向就是0.5,这样我左右移的时候，还会有前后移的效果
+            var vector = new THREE.Vector3( mouse.x, mouse.y, 0.5 );
+
+            //屏幕和场景转换工具根据照相机，把这个向量从屏幕转化为场景中的向量
+            projector.unprojectVector( vector, camera );
+
+            //vector.sub( camera.position ).normalize()变换过后的向量vector减去相机的位置向量后标准化
+            //新建一条从相机的位置到vector向量的一道光线
+            var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+
+            //否则的话，光线和所有物体相交，返回相交的物体
+            var intersects = raycaster.intersectObjects( targetList );
+            //如果有物体相交了
+            if ( intersects.length > 0 ) {
+                //改变鼠标的样式
+                container.style.cursor = 'pointer';
+            } else {
+                //改变鼠标的样式
+                container.style.cursor = 'auto';
+            }
+        }
 
         function startThree()
         {
@@ -304,7 +336,13 @@
             addAxis();
             //parse the json data returned from DataBase
             JsonParse(mockJson, pipeArray);
-            addPipe(pipeArray);
+            JsonParseWithInfo(mockJson,pipeArrayWithInfo);
+            addPipeWithInfoArray(pipeArrayWithInfo);
+
+            projector = new THREE.Projector();
+            // when the mouse moves, call the given function
+	          document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+            document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
             renderer.render(scene, camera);
         }
