@@ -189,7 +189,16 @@
         //function add single tube with userData
         function addSingleTubeWithUserData(start,end,userData,color)
         {
-            var linecurve = new THREE.LineCurve(start, end);
+            //根据空间向量为起点终点各自额外增加一个半径的长度
+            var x,y,z;
+            x = end.x - start.x;
+            y = end.y - start.y;
+            z = end.z - start.z;
+            var mo = Math.sqrt(x*x+y*y+z*z);
+            var start_r = new THREE.Vector3(start.x-x/mo*2,start.y-y/mo*2,start.z-z/mo*2);
+            var end_r = new THREE.Vector3(end.x+x/mo*2,end.y+y/mo*2,end.z+z/mo*2);
+
+            var linecurve = new THREE.LineCurve(start_r, end_r);
             var lineGeometry = new THREE.TubeGeometry(linecurve, 100, 4, 20, false);
 
             var lineMesh = new THREE.Mesh(lineGeometry, new THREE.MeshLambertMaterial({
