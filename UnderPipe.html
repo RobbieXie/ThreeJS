@@ -7,6 +7,9 @@
     <script type="text/javascript" src="js/three.js"></script>
     <script type="text/javascript" src="js/OrbitControls.js"></script>
     <script type="text/javascript" src="js/OBJLoader.js"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="mockJson.js"></script>
     <style type="text/css">
         div#main-canvas {
@@ -65,9 +68,9 @@
         function initCamera()
         {
             camera = new THREE.PerspectiveCamera(45, width/height, 1, 10000);
-            camera.position.x = 800;
-            camera.position.y = 800;
-            camera.position.z = 800;
+            camera.position.x = 400;
+            camera.position.y = 400;
+            camera.position.z = 400;
             //camera.lookAt(new THREE.Vector3(300, 300, 300));
             camera.lookAt(new THREE.Vector3(200, 0, 0));
             scene.add(camera);
@@ -301,7 +304,14 @@
         	if ( intersects.length > 0 )
         	{
         		// change the color of the closest face.
-            alert(intersects[ 0 ].object.userData);
+            // alert(intersects[ 0 ].object.userData);
+            var curUserData = intersects[ 0 ].object.userData;
+            $('#pipe_id').val(curUserData.ID);
+            $('#pipe_name').val(curUserData.name);
+            $('#pipe_type').val(curUserData.type);
+            $('#pipe_status').val(curUserData.status);
+            $('#pipe_company').val(curUserData.companyName);
+            $("#myModal").modal('show');
         	}
         }
 
@@ -362,6 +372,35 @@
     <div id="main-canvas">
     </div>
     <div id="test-canvas">
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+    					&times;
+    				</button>
+    				<h4 class="modal-title" id="myModalLabel">
+    					管道信息
+    				</h4>
+    			</div>
+    			<div class="modal-body">
+                ID：<input type="text" name="pipe_id" id="pipe_id" /></br>
+                名称：<input type="text" name="pipe_name" id="pipe_name"/></br>
+                类型：<input type="text" name="pipe_type" id="pipe_type"/></br>
+                所属公司：<input type="text" name="pipe_company" id="pipe_company"/></br>
+                状态：<input type="text" name="pipe_status" id="pipe_status"/>
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+    				</button>
+    				<!-- <button type="button" class="btn btn-primary">
+    					提交更改
+    				</button> -->
+    			</div>
+    		</div><!-- /.modal-content -->
+    	</div><!-- /.modal -->
     </div>
 </body>
 </html>
