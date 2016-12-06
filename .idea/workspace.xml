@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="634461e5-df54-478c-87b8-a6562ca764a5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LY_MouseClickEvent.html" afterPath="$PROJECT_DIR$/LY_MouseClickEvent.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LPP_test_color.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/color.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kx_test.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UnderPipe.html" afterPath="$PROJECT_DIR$/UnderPipe.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/click_demo.html" afterPath="$PROJECT_DIR$/click_demo.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/extrude-tube.html" afterPath="$PROJECT_DIR$/extrude-tube.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/popup_layer.js" afterPath="$PROJECT_DIR$/js/popup_layer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my3Ddemo1.html" afterPath="$PROJECT_DIR$/my3Ddemo1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.html" afterPath="$PROJECT_DIR$/test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tooltip_test.html" afterPath="$PROJECT_DIR$/tooltip_test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tooltips.html" afterPath="$PROJECT_DIR$/tooltips.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mockJson.js" afterPath="$PROJECT_DIR$/mockJson.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problems.txt" afterPath="$PROJECT_DIR$/problems.txt" />
     </list>
     <ignored path="ThreeJS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,7 +49,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1481026733693" expanded="true" signature="15:4894" ph="{...}" />
+                <marker date="1481026733693" expanded="true" signature="76:4892" ph="[...]" />
+                <marker date="1481026733693" expanded="true" signature="82:1005" ph="{...}" />
+                <marker date="1481026733693" expanded="true" signature="101:228" ph="{&quot;name&quot;: &quot;同济软院地下水管&quot;...}" />
+                <marker date="1481026733693" expanded="true" signature="245:999" ph="[...]" />
+                <marker date="1481026733693" expanded="true" signature="255:371" ph="{&quot;location&quot;: &quot;start&quot;...}" />
+                <marker date="1481026733693" expanded="true" signature="505:619" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+                <marker date="1481026733693" expanded="true" signature="629:743" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+                <marker date="1481026733693" expanded="true" signature="753:867" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+                <marker date="1481026733693" expanded="true" signature="877:991" ph="{&quot;location&quot;: &quot;end&quot;...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,9 +68,11 @@
       <file leaf-file-name="UnderPipe.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UnderPipe.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6441">
-              <caret line="339" column="73" selection-start-line="339" selection-start-column="73" selection-end-line="339" selection-end-column="73" />
-              <folding />
+            <state relative-caret-position="532">
+              <caret line="346" column="0" selection-start-line="346" selection-start-column="0" selection-end-line="346" selection-end-column="0" />
+              <folding>
+                <element signature="e#16619#16626#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -161,9 +171,9 @@
         <option value="$PROJECT_DIR$/tooltips.html" />
         <option value="$PROJECT_DIR$/click_demo.html" />
         <option value="$PROJECT_DIR$/tooltip_test.html" />
-        <option value="$PROJECT_DIR$/UnderPipe.html" />
         <option value="$PROJECT_DIR$/test.html" />
         <option value="$PROJECT_DIR$/js/popup_layer.js" />
+        <option value="$PROJECT_DIR$/UnderPipe.html" />
       </list>
     </option>
   </component>
@@ -334,12 +344,12 @@
       <workItem from="1480343346848" duration="14618000" />
       <workItem from="1480423205327" duration="10446000" />
       <workItem from="1480516769968" duration="4495000" />
-      <workItem from="1481024456326" duration="1585000" />
+      <workItem from="1481024456326" duration="1677000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36318000" />
+    <option name="totallyTimeSpent" value="36410000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
@@ -579,7 +589,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1481026733693" expanded="true" signature="15:4894" ph="{...}" />
+            <marker date="1481026733693" expanded="true" signature="76:4892" ph="[...]" />
+            <marker date="1481026733693" expanded="true" signature="82:1005" ph="{...}" />
+            <marker date="1481026733693" expanded="true" signature="101:228" ph="{&quot;name&quot;: &quot;同济软院地下水管&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="245:999" ph="[...]" />
+            <marker date="1481026733693" expanded="true" signature="255:371" ph="{&quot;location&quot;: &quot;start&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="505:619" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="629:743" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="753:867" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="877:991" ph="{&quot;location&quot;: &quot;end&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -790,15 +811,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1481026733693" expanded="true" signature="15:4894" ph="{...}" />
+            <marker date="1481026733693" expanded="true" signature="76:4892" ph="[...]" />
+            <marker date="1481026733693" expanded="true" signature="82:1005" ph="{...}" />
+            <marker date="1481026733693" expanded="true" signature="101:228" ph="{&quot;name&quot;: &quot;同济软院地下水管&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="245:999" ph="[...]" />
+            <marker date="1481026733693" expanded="true" signature="255:371" ph="{&quot;location&quot;: &quot;start&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="505:619" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="629:743" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="753:867" ph="{&quot;location&quot;: &quot;mid&quot;...}" />
+            <marker date="1481026733693" expanded="true" signature="877:991" ph="{&quot;location&quot;: &quot;end&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UnderPipe.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6441">
-          <caret line="339" column="73" selection-start-line="339" selection-start-column="73" selection-end-line="339" selection-end-column="73" />
-          <folding />
+        <state relative-caret-position="532">
+          <caret line="346" column="0" selection-start-line="346" selection-start-column="0" selection-end-line="346" selection-end-column="0" />
+          <folding>
+            <element signature="e#16619#16626#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
