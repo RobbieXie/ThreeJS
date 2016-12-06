@@ -10,45 +10,44 @@ var mockJson = {
         "status":1
       },
       "points":[
-        { x: 121.219928,
-          y: 31.288935,
-          z: 40,
-          radius: 5,
-          location: "start"
-        },
-        { x: 121.219959,
-          y: 31.288788,
-          z: 40,
-          radius: 5,
-          location: "mid"
-        },
-        { x: 121.220211,
-          y: 31.288777,
-          z: 40,
-          radius: 5,
-          location: "mid"
-        },
-        { x: 121.220153,
-          y: 31.288738,
-          z: 40,
-          radius: 5,
-          location: "mid"
-        },
-        { x: 121.219955,
-          y: 31.288738,
-          z: 40,
-          radius: 5,
-          location: "mid"
-        },
-        { x: 121.219942,
-          y: 31.288568,
-          z: 40,
-          radius: 5,
-          location: "end"
-        }
-      ]
+      { x: 121.219928,
+        y: 31.288935,
+        z: 40,
+        radius: 5,
+        location: "start"
+      },
+      { x: 121.219959,
+        y: 31.288788,
+        z: 40,
+        radius: 5,
+        location: "mid"
+      },
+      { x: 121.220211,
+        y: 31.288777,
+        z: 40,
+        radius: 5,
+        location: "mid"
+      },
+      { x: 121.220153,
+        y: 31.288738,
+        z: 40,
+        radius: 5,
+        location: "mid"
+      },
+      { x: 121.219955,
+        y: 31.288738,
+        z: 40,
+        radius: 5,
+        location: "mid"
+      },
+      { x: 121.219942,
+        y: 31.288568,
+        z: 40,
+        radius: 5,
+        location: "end"
+      }
+    ]
     },
-    
     {
       "pipeInfo":{
         "ID": 1114,
@@ -71,8 +70,8 @@ var mockJson = {
           location: "end"
         }
       ]
-    }
-    
+    },
+
     {
       "pipeInfo":{
         "ID": 111,
@@ -130,108 +129,110 @@ var mockJson = {
           radius: 5,
           location: "mid"
         }, //风洞中心
-        { x: 
-          y: ,
+        { x:100,
+          y: 100,
           z: 50,
-          radius: 5,
-          location: "mid"
-        }, //风洞中心
-        { x: 121.219872,
-          y: 31.296198,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, //汽车能源中心
-        { x: 121.222931,
-          y: 31.296036,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, //体育馆
-        { x: 121.224777,
-          y: 31.296703,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // #18
-        { x: 121.225999,
-          y: 31.296363,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // #20
-        { x: 121.224373,
-          y: 31.295611,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // #14#15
-        { x: 121.223668,
-          y: 31.294713,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // #12
-        { x: 121.223488,
-          y: 31.293771,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // 食堂
-        { x: 121.223591,
-          y: 31.293066,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // 新天地教超
-        { x: 121.225078,
-          y: 31.292765,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // #9#10
-        { x: 121.224633,
-          y: 31.292012,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // #7#8
-        { x: 121.222823,
-          y: 31.291791,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // #H
-        { x: 121.220353,
-          y: 31.288527,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // 软件学院
-        { x: 121.220227,
-          y: 31.289361,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // 济人楼
-        { x: 121.218978,
-          y: 31.290194,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // 同德楼
-        { x: 121.218206,
-          y: 31.290171,
-          z: 50,
-          radius: 5,
-          location: "mid"
-        }, // 同心楼
-        { x: 121.218457,
-          y: 31.288389,
-          z: 50,
-          radius: 5,
-          location: "end"
-        } // 正门  
-      ]
-  	}
+        radius: 5,
+        location: "mid"
+    }, //风洞中心
+    { x: 121.219872,
+        y: 31.296198,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, //汽车能源中心
+    { x: 121.222931,
+        y: 31.296036,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, //体育馆
+    { x: 121.224777,
+        y: 31.296703,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // #18
+    { x: 121.225999,
+        y: 31.296363,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // #20
+    { x: 121.224373,
+        y: 31.295611,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // #14#15
+    { x: 121.223668,
+        y: 31.294713,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // #12
+    { x: 121.223488,
+        y: 31.293771,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // 食堂
+    { x: 121.223591,
+        y: 31.293066,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // 新天地教超
+    { x: 121.225078,
+        y: 31.292765,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // #9#10
+    { x: 121.224633,
+        y: 31.292012,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // #7#8
+    { x: 121.222823,
+        y: 31.291791,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // #H
+    { x: 121.220353,
+        y: 31.288527,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // 软件学院
+    { x: 121.220227,
+        y: 31.289361,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // 济人楼
+    { x: 121.218978,
+        y: 31.290194,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // 同德楼
+    { x: 121.218206,
+        y: 31.290171,
+        z: 50,
+        radius: 5,
+        location: "mid"
+    }, // 同心楼
+    { x: 121.218457,
+        y: 31.288389,
+        z: 50,
+        radius: 5,
+        location: "end"
+    } // 正门
+    ]
+
+    }
+    ]
 }
