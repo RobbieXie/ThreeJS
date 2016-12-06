@@ -1,10 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Three框架</title>
+    <script src="js/Three.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <style type="text/css">
+        div#canvas-frame {
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 600px;
+            background-color: #EEEEEE;
+        }
+
+    </style>
+    <script>
+
+        var renderer;
+        var raycaster;
+        var mouse;
+        var intersects = [];
+        var INTERSECTED;
+        function onDocumentMouseMove(event) {
+            event.preventDefault();
+            mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        }
+        function initThree() {
+            width = document.getElementById('canvas-frame').clientWidth;
+            height = document.getElementById('canvas-frame').clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias : true
+            });
+            renderer.setSize(width, height);
+            document.getElementById('canvas-frame').appendChild(renderer.domElement);
+            renderer.setClearColor(0xFFFFFF, 1.0);
+        }
+
+        var camera;
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
+            camera.position.x = 500;
+            camera.position.y = 500;
+            camera.position.z = 1500;
+//            camera.up.x = 1;
+//            camera.up.y = 0;
+//            camera.up.z = 1;
+            camera.lookAt({
+                x : 0,
+                y : 0,
+                z : 0
+            });
+            var controls = new THREE.OrbitControls( camera );
+            controls.addEventListener( 'change', render );
+
+        }
+
+        var scene;
+        function initScene() {
+            scene = new THREE.Scene();
+        }
+
+        var light;
+        function initLight() {
+            light = new THREE.DirectionalLight(0xFF0000, 1.0, 0);
+            light.position.set(100, 100, 200);
+            scene.add(light);
+        }
+
+        function initObject() {
+//            for (var i = 0; i < 50; i++) {
+//                var geometry = new THREE.CubeGeometry(4, 4, 4);
+//                var material = new THREE.MeshBasicMaterial({
+//                    color: Math.random() * 0xffffff,
+//                    opacity: 0.5
+//                });
+//                var mesh = new THREE.Mesh(geometry, material);
+//                mesh.position.x = Math.random() * 100 - 10;
+//                mesh.position.y = Math.random() * 100 - 10;
+//                mesh.position.z = Math.random() * 100 - 10;
+//                scene.add(mesh);
+//            }
+
+            var geometry = new THREE.SphereGeometry( 70, 32, 16 );
+            var object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
+            scene.add( object );
+
+//            for ( var i = 0; i < 50; i ++ ) {
+//                //把这个球体加上网格材质，随机生成一种颜色的网格对象
+//
+//                //把材质颜色放到对象的环境颜色上，还没有理解
+//                object.material.ambient = object.material.color;
+//
+//                //随机放置一个位置
+//                object.position.x = Math.random() * 3000 - 1500;
+//                object.position.y = Math.random() * 1800 - 1000;
+//                object.position.z = Math.random() * 2400 - 1200;
+//
+//                //加到场景中去
+//                scene.add( object );
+//
+//                //放到对象数组中
+//                objects.push( object );
+//
+//            }
+
+        }
+
+
+        function threeStart() {
+            initThree();
+            initCamera();
+            initScene();
+            initLight();
+            initObject();
+            document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+            document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+            renderer.render(scene, camera);
+
+        }
+
+        function onDocumentMouseMove( event ) {
+            //阻止本来的默认事件，比如浏览器的默认右键事件是弹出浏览器的选项
+            event.preventDefault();
+            mouse.x = ( event.clientX / width ) * 2 - 1;
+            mouse.y = - ( event.clientY / (height+20) ) * 2 + 1;
+
+
+
+            //vector.sub( camera.position ).normalize()变换过后的向量vector减去相机的位置向量后标准化
+            //新建一条从相机的位置到vector向量的一道光线
+            raycaster.setFromCamera(mouse, camera);
+
+            //否则的话，光线和所有物体相交，返回相交的物体
+            var intersects = raycaster.intersectObjects( scene.children );
+            //如果有物体相交了
+            if ( intersects.length > 0 ) {
+                //改变鼠标的样式
+                container.style.cursor = 'pointer';
+
+            } else {
+                //改变鼠标的样式
+                container.style.cursor = 'auto';
+
+//                context1.clearRect(0,0,300,300);
+//                texture1.needsUpdate = true;
+            }
+        }
+
+
+        function render()
+        {
+            requestAnimationFrame(render);
+//            renderer.render(scene, camera);
+//            raycaster.setFromCamera(mouse, camera);
+//            intersects = raycaster.intersectObjects(scene.children);
+//            //拾取物体数大于0时
+//            if (intersects.length > 0) {
+//                //获取第一个物体
+//                if (INTERSECTED != intersects[0].object) {
+//                    if (INTERSECTED) INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
+//                    INTERSECTED = intersects[0].object;
+//                    INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
+//                    //改变物体的颜色(红色)
+//                    INTERSECTED.material.color.set( 0xff0000 );
+//                }
+//            } else {
+//                if (INTERSECTED) INTERSECTED.material.color.set(INTERSECTED.currentHex);
+//                INTERSECTED = null;
+//            }
+        }
+
+    </script>
 </head>
-<body>
-$END$
+
+<body onload="threeStart();">
+<div id="canvas-frame"></div>
 </body>
 </html>
